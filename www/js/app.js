@@ -70,4 +70,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
+}).factory('tokenInterceptor', function(AccessToken) {
+  return {
+    request: function(config) {
+      var token = AccessToken.get();
+      if (token) {
+        config.headers['Authorization'] = "Token " + token;
+      }
+      return config;
+    }
+  };
 });
